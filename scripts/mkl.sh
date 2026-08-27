@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 set -x
 set -e
 
@@ -16,6 +17,8 @@ prefix=$(realpath $prefix)
 
 INSTALL=$prefix/install
 TMP=$prefix/tmp
+
+source $prefix/scripts/config.sh
 
 mkdir -p $INSTALL $TMP
 
