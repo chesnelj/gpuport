@@ -18,16 +18,6 @@ apt update -y
 apt install -y ca-certificates 
 update-ca-certificates 
 
-# Set snapshot
-
-rm -rf /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources /var/lib/apt/lists/* 
-
-cat -> /etc/apt/sources.list << DEB
-deb http://snapshot.ubuntu.com/ubuntu/20260610T000000Z/ resolute main restricted universe multiverse
-deb http://snapshot.ubuntu.com/ubuntu/20260610T000000Z/ resolute-updates main restricted universe multiverse
-deb http://snapshot.ubuntu.com/ubuntu/20260610T000000Z/ resolute-security main restricted universe multiverse
-DEB
-
 # Reload package list
 
 apt update -y
@@ -61,7 +51,7 @@ chmod +x apt.sh
 cat -> singularity.def << EOF
 Bootstrap: docker
 
-From: ubuntu:resolute-20260610
+From: ubuntu:26.04
 
 %files
   /usr/local/share/ca-certificates/meteo-fr.crt /usr/local/share/ca-certificates/meteo-fr.crt
