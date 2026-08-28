@@ -34,5 +34,5 @@ singularity exec \
   --bind $HOME/.ssh:$HOME/.ssh:ro \
   --bind $HOME/.gitconfig:$HOME/.gitconfig:ro \
   --bind $HOME/.git-credentials:$HOME/.git-credentials:ro \
-  -B /usr/bin/tar:/usr/bin/host_tar \
+  -B /usr/bin/tar:/usr/bin/tar \
   $prefix/.singularity.sif bash --rcfile $prefix/scripts/bashrc

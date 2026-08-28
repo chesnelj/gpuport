@@ -118,8 +118,6 @@ prefix=$(dirname $0)
 prefix=$(dirname $prefix)
 prefix=$(realpath $prefix)
 
-source $prefix/scripts/config.sh
-
 INSTALL=$prefix/install
 SOURCES=$prefix/sources
 TMP=$prefix/tmp
