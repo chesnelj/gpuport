@@ -35,6 +35,8 @@ apt full-upgrade -y
 apt install -y unminimize 
 yes | unminimize 
 
+apt install -y --allow-downgrades libssl3t64=3.5.5-1ubuntu3.2
+
 apt install -y command-not-found liblocal-lib-perl cmake make gcc gfortran git tzdata wget libwww-perl locales vim-nox \\
                man man-db manpages manpages-dev libxml-libxml-perl g++ perl-doc build-essential libgcc-13-dev libucx-dev ucx-utils \\
                libperl-dev libjson-perl libyaml-perl libdbi-perl cpanminus sqlite3 libsqlite3-dev environment-modules libterm-readline-perl-perl \\
