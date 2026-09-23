@@ -26,6 +26,43 @@ function installROCM ()
   ln -s $dir $INSTALL/rocm/$VV
 }
 
+function installUCX ()
+{
+
+  t=$SOURCES/ucx-1.17.0.tar.gz
+
+  if [ ! -f $t ] 
+  then
+    wget -O $t https://github.com/openucx/ucx/releases/download/v1.17.0/ucx-1.17.0.tar.gz 
+  fi
+
+  b=$(basename $t .tar.gz)
+
+  if [ -d "$INSTALL/rocm/$VV/ucx" ]
+  then
+    return
+  fi
+
+  \rm -rf $b 
+
+  tar xf $t
+
+  cd $b
+
+  ./configure --prefix=$INSTALL/rocm/$VV/ucx \
+        --enable-mt --enable-optimizations \
+        --with-verbs --with-mlx5-dv --with-rc --with-dc --with-ud --enable-cma \
+        --without-cuda --without-rocm --without-knem --without-xpmem \
+        --without-java --without-go --disable-openmp \
+        --disable-logging --disable-debug --disable-assertions \
+        CFLAGS="-Wno-error -std=gnu17" CXXFLAGS="-Wno-error"
+  
+  make -j16 && make install
+  $INSTALL/rocm/$VV/ucx/bin/ucx_info -v
+
+}
+
+
 function installOPENMPI ()
 {
   t=$SOURCES/openmpi-5.0.7.tar.gz
@@ -162,6 +199,8 @@ mkdir -p $TMP
 cd $TMP
 
 installROCM
+
+installUCX
 
 export PATH=$INSTALL/rocm/$VV/bin:$PATH
 
