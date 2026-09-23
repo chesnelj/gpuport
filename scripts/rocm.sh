@@ -57,24 +57,30 @@ function installUCX ()
         --disable-logging --disable-debug --disable-assertions \
         CFLAGS="-Wno-error -std=gnu17" CXXFLAGS="-Wno-error"
   
-  make -j16 && make install
+  make -j$nthread 
+  make install
+  # To check installation
   $INSTALL/rocm/$VV/ucx/bin/ucx_info -v
+  # To check available communication devices
+  # rc_mlx5 , dc_mlx5 , ud_mlx5 , rc_verbs , ud_verbs , cma , posix , sysv expected
+  # Only tcp, posix or sysv the modules are not correctly loaded
+  #srun -N2 ./scripts/singularity-exec.sh $INSTALL/rocm/$VV/ucx/bin/ucx_info -d | grep -E 'Transport:|Device:' | sort -u
 
 }
 
 
 function installOPENMPI ()
 {
-  t=$SOURCES/openmpi-5.0.7.tar.gz
+  t=$SOURCES/openmpi-5.0.10.tar.gz
 
   if [ ! -f $t ] 
   then
-    wget -O $t https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.7.tar.gz
+    wget -O $t https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.10.tar.gz
   fi
 
   b=$(basename $t .tar.gz)
 
-  if [ -d "$INSTALL/rocm/$VV/openmpi-5.0.7" ]
+  if [ -d "$INSTALL/rocm/$VV/openmpi-5.0.10" ]
   then
     return
   fi
@@ -85,7 +91,9 @@ function installOPENMPI ()
 
   cd $b
 
-  ./configure --prefix=$INSTALL/rocm/$VV/openmpi-5.0.7 --with-pmix
+  ./configure --prefix=$INSTALL/rocm/$VV/openmpi-5.0.10 \
+	--with-ucx=$INSTALL/rocm/$VV/ucx \
+	--with-pmix=internal --disable-oshmem 
 
   make -j$nthread
   make install 
