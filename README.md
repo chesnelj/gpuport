@@ -100,8 +100,9 @@ This installs the AMD ROCm AFAR compiler and builds OpenMPI, HDF5, and NetCDF ag
 
 * Default: downloads **ROCm AFAR 23.2.1** (`therock-afar-23.2.1-gfx94X...`).
 * Installs to: `install/rocm/2321/`
+* Builds ucx 1-17-0 under `install/rocm/2321/ucx` for the RDMA transfert
 * Sets `FC=amdflang`, `CC=amdclang`, `CXX=amdclang++`
-* Builds OpenMPI 5.0.7 under `install/rocm/2321/openmpi-5.0.7`
+* Builds OpenMPI 5.0.10 under `install/rocm/2321/openmpi-5.0.10`
 * Builds HDF5 and NetCDF under `install/rocm/2321/hdf5/1.14.3` and `.../netcdf4/4.9.2`
 
 ### 6. Install fxtran
