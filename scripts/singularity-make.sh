@@ -44,6 +44,9 @@ apt install -y command-not-found liblocal-lib-perl cmake make gcc gfortran git t
                libcurl4-openssl-dev xterm screen libxml2-utils tree time gawk bison flex gh curl ca-certificates rsync libaec-dev \\
                python3 python3-pip python3-venv strace valgrind ltrace linux-perf jq proxychains4 python3-setuptools libfile-type-perl 
 
+# RDMA headers
+apt install -y libibverbs-dev librdmacm-dev libnuma-dev ibverbs-providers rdma-core infiniband-diags ibverbs-utils
+
 sed -i 's/^# *fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen 
 locale-gen 
 mandb 
